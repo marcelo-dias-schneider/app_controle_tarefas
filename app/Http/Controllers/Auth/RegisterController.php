@@ -22,6 +22,8 @@ class RegisterController extends Controller
     |
     */
 
+    // trait # importa toda a classe RegistersUsers
+    // um exemplo de trait é o softDelete
     use RegistersUsers;
 
     /**
