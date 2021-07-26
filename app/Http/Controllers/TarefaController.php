@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class TarefaController extends Controller
 {
@@ -23,7 +24,22 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        echo 'index';
+        // // verifica se a sessão é ativa dentro de um metodo especifico
+        // if(auth()->check()){
+        //     // recupera os dados do usuario atravez da sessao
+        //     $id = auth()->user()->id;
+        //     $nome = auth()->user()->name;
+        //     $email = auth()->user()->email;
+        //     // exibindo os dados
+        //     return "ID $id | Nome $nome | email $email";
+        // }
+
+        // recupera os dados do usuario atravez da sessao
+        $id = Auth::user()->id;
+        $nome = Auth::user()->name;
+        $email = Auth::user()->email;
+        // exibindo os dados
+        return "ID $id | Nome $nome | email $email";
     }
 
     /**
