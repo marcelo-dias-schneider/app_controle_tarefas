@@ -1,5 +1,6 @@
 <?php
 
+use App\Mail\MensagemMail;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -22,3 +23,8 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController');
+Route::get('/mensagem', function () {
+    return new MensagemMail();
+    // Mail::to('marcelo.d.schneider@gmail.com')->send(new MensagemMail());
+    // return 'Email enviado com sucesso';
+});
