@@ -1,6 +1,7 @@
 <?php
 
 use App\Mail\MensagemMail;
+use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -19,10 +20,14 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-Route::resource('tarefa', 'App\Http\Controllers\TarefaController');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home')
+    ->middleware('verified');
+Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
+    ->middleware('verified');
+    
 Route::get('/mensagem', function () {
     return new MensagemMail();
     // Mail::to('marcelo.d.schneider@gmail.com')->send(new MensagemMail());
