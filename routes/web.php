@@ -22,10 +22,10 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-// Rota definida em App\Providers const HOME
-// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
-//     ->name('home')
-//     ->middleware('verified');
+// A Rora apos login pode ser definida em App\Providers const HOME
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+    ->name('home')
+    ->middleware('verified');
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
     ->middleware('verified');
 
