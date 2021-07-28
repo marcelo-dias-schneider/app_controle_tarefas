@@ -36,7 +36,7 @@ class TarefaController extends Controller
         } else {
             return 'Você não esta logado';
         }
-        $tarefas = Tarefa::where('user_id', $usuario['id'])->paginate(1);
+        $tarefas = Tarefa::where('user_id', $usuario['id'])->paginate(5);
         return view('tarefa.index', compact('usuario', 'tarefas'));
     }
 
@@ -65,6 +65,18 @@ class TarefaController extends Controller
         //     'data_conclusao' => $request->get('data_conclusao')
         // ]);
         // criando um array com os dados
+        $regras = [
+            'tarefa' => 'required|min:3|max:255',
+            'data_conclusao' => 'required|date'
+        ];
+        $feedback = [
+            'required' => 'O campo :attribute deve ser preenchido',
+            'tarefa.min' => 'Tarefa deve ter ao menos 3 caracteres',
+            'tarefa.max' => 'Tarefa deve ter ate 255 caracteres',
+            'data_conclusao.date' => 'Deve ser informado uma data valida'
+        ];
+        $request->validate($regras, $feedback);
+
         $dados = $request->all('tarefa', 'data_conclusao');;
         $dados['user_id'] = auth()->user()->id;
         $tarefa = Tarefa::Create($dados);
