@@ -1,6 +1,6 @@
 @if (isset($tarefa))
     <form method="post" action="{{ route('tarefa.update', compact('tarefa')) }}">
-    @method('UPDATE')
+    @method('PUT')
 @else
     <form method="post" action="{{ route('tarefa.store') }}">
 @endif
@@ -15,5 +15,5 @@
         <input type="date" name="data_conclusao" class="form-control" id="data_conclusao" value="{{ old('data_conclusao') ?? ( isset($tarefa->data_conclusao) ? $tarefa->data_conclusao : '' ) }}">
         {{ $errors->has('data_conclusao') ? $errors->first('data_conclusao') : '' }}
     </div>
-    <button type="submit" class="btn btn-primary">Criar</button>
+    <button type="submit" class="btn btn-primary">Confirmar</button>
 </form>

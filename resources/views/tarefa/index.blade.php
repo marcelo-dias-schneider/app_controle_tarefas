@@ -14,14 +14,17 @@
                             <th scope="col">#</th>
                             <th scope="col">Tarefa</th>
                             <th scope="col">Data de Conclusão</th>
+                            <th scope="col" colspan="2">Ação</th>
                             </tr>
                         </thead>
                         <tbody>
                             @foreach ($tarefas as $tarefa)
                                 <tr>
-                                <th scope="row">{{ $tarefa->id }}</th>
-                                <td>{{ $tarefa->tarefa }}</td>
-                                <td>{{ date('d/m/Y'), strtotime($tarefa->data_conclusao) }}</td>
+                                    <th scope="row">{{ $tarefa->id }}</th>
+                                    <td>{{ $tarefa->tarefa }}</td>
+                                    <td>{{ date('d/m/Y', strtotime($tarefa->data_conclusao)) }}</td>
+                                    <td><a href="{{ route('tarefa.show', compact('tarefa')) }}">Ver</a></td>
+                                    <td><a href="{{ route('tarefa.edit', compact('tarefa')) }}">Editar</a></td>
                                 </tr>
                             @endforeach
                         </tbody>
