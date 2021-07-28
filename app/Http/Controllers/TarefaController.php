@@ -26,22 +26,18 @@ class TarefaController extends Controller
      */
     public function index()
     {
-        // // verifica se a sessão é ativa dentro de um metodo especifico
-        // if(auth()->check()){
-        //     // recupera os dados do usuario atravez da sessao
-        //     $id = auth()->user()->id;
-        //     $nome = auth()->user()->name;
-        //     $email = auth()->user()->email;
-        //     // exibindo os dados
-        //     return "ID $id | Nome $nome | email $email";
-        // }
-
-        // recupera os dados do usuario atravez da sessao
-        $id = Auth::user()->id;
-        $nome = Auth::user()->name;
-        $email = Auth::user()->email;
-        // exibindo os dados
-        return "ID $id | Nome $nome | email $email";
+        // verifica se a sessão é ativa dentro de um metodo especifico
+        if(auth()->check()){
+            // recupera os dados do usuario atravez da sessao
+            $usuario['id'] = auth()->user()->id;
+            $usuario['nome'] = auth()->user()->name;
+            $usuario['email'] = auth()->user()->email;
+            // exibindo os dados
+        } else {
+            return 'Você não esta logado';
+        }
+        $tarefas = Tarefa::where('user_id', $usuario['id'])->paginate(1);
+        return view('tarefa.index', compact('usuario', 'tarefas'));
     }
 
     /**
@@ -62,12 +58,16 @@ class TarefaController extends Controller
      */
     public function store(Request $request)
     {
-        $user_id = auth()->user()->id;
-        $tarefa = Tarefa::create([
-            'user_id' => $user_id,
-            'tarefa' => $request->get('tarefa'),
-            'data_conclusao' => $request->get('data_conclusao')
-        ]);
+        // recuperando os dados individualmente
+        // $tarefa = Tarefa::create([
+        //     'user_id' => $user_id,
+        //     'tarefa' => $request->get('tarefa'),
+        //     'data_conclusao' => $request->get('data_conclusao')
+        // ]);
+        // criando um array com os dados
+        $dados = $request->all('tarefa', 'data_conclusao');;
+        $dados['user_id'] = auth()->user()->id;
+        $tarefa = Tarefa::Create($dados);
         $destinatario = auth()->user()->email;
         Mail::to($destinatario)->send(new NovaTarefaMail($tarefa));
         return redirect()->route('tarefa.show', compact('tarefa') );
