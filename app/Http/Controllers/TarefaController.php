@@ -93,6 +93,9 @@ class TarefaController extends Controller
      */
     public function show(Tarefa $tarefa)
     {
+        if (!$tarefa->user_id == auth()->user()->id) {
+            return view('accesso-negado');
+        }
         return view('tarefa.show', compact('tarefa'));
     }
 
@@ -104,6 +107,9 @@ class TarefaController extends Controller
      */
     public function edit(Tarefa $tarefa)
     {
+        if (!$tarefa->user_id == auth()->user()->id) {
+            return view('accesso-negado');
+        }
         return view('tarefa.edit', compact('tarefa'));
     }
 
@@ -116,6 +122,9 @@ class TarefaController extends Controller
      */
     public function update(Request $request, Tarefa $tarefa)
     {
+        if (!$tarefa->user_id == auth()->user()->id) {
+            return view('accesso-negado');
+        }
         $regras = [
             'tarefa' => 'required|min:3|max:255',
             'data_conclusao' => 'required|date'
@@ -139,6 +148,8 @@ class TarefaController extends Controller
      */
     public function destroy(Tarefa $tarefa)
     {
-        //
+        if (!$tarefa->user_id == auth()->user()->id) {
+            return view('accesso-negado');
+        }
     }
 }
