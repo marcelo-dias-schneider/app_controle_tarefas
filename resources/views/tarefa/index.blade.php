@@ -14,7 +14,7 @@
                             <th scope="col">#</th>
                             <th scope="col">Tarefa</th>
                             <th scope="col">Data de Conclusão</th>
-                            <th scope="col" colspan="2">Ação</th>
+                            <th scope="col" colspan="3">Ação</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -22,9 +22,16 @@
                                 <tr>
                                     <th scope="row">{{ $tarefa->id }}</th>
                                     <td>{{ $tarefa->tarefa }}</td>
-                                    <td>{{ date('d/m/Y', strtotime($tarefa->data_conclusao)) }}</td>
-                                    <td><a href="{{ route('tarefa.show', compact('tarefa')) }}">Ver</a></td>
+                                    <td>{{ date('d/m/Y', strtotime($tarefa->data_conclusao) ) }}</td>
+                                    <td>
+                                        <form id="form_{{ $tarefa->id }}" method="post" action="{{ route('tarefa.destroy', compact('tarefa')) }}">
+                                            @csrf
+                                            @method('DELETE')
+                                            <a href="#" onclick="document.querySelector('#form_{{ $tarefa->id }}').submit()">Excluir</a>
+                                        </form>
+                                    </td>
                                     <td><a href="{{ route('tarefa.edit', compact('tarefa')) }}">Editar</a></td>
+                                    <td><a href="{{ route('tarefa.show', compact('tarefa')) }}">Ver</a></td>
                                 </tr>
                             @endforeach
                         </tbody>

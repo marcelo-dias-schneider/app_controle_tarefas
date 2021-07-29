@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NovaTarefaMail;
 use App\Mail\TarefaAtualizadaMail;
+use App\Mail\RemoverTarefaMail;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -155,5 +156,9 @@ class TarefaController extends Controller
         if ($tarefa->user_id != auth()->user()->id) {
             return view('accesso-negado');
         }
+        $tarefa->delete();
+        $destinatario = auth()->user()->email;
+        Mail::to($destinatario)->send(new RemoverTarefaMail($tarefa));
+        return redirect()->route('tarefa.index');
     }
 }
