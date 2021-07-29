@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\Mail;
 use App\Mail\NovaTarefaMail;
+use App\Mail\TarefaAtualizadaMail;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -136,7 +137,10 @@ class TarefaController extends Controller
             'data_conclusao.date' => 'Deve ser informado uma data valida'
         ];
         $request->validate($regras, $feedback);
+        $tarefa_antiga = $tarefa->getAttributes();
         $tarefa->update($request->all());
+        $destinatario = auth()->user()->email;
+        Mail::to($destinatario)->send(new TarefaAtualizadaMail($tarefa, $tarefa_antiga));
         return redirect()->route('tarefa.show', compact('tarefa'));
     }
 
