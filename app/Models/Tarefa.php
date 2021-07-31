@@ -16,4 +16,9 @@ class Tarefa extends Model
         'tarefa',
         'data_conclusao'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo('App\models\User');
+    }
 }
