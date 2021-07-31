@@ -19,6 +19,6 @@ class Tarefa extends Model
 
     public function user()
     {
-        return $this->belongsTo('App\models\User');
+        return $this->belongsTo(User::class);
     }
 }
