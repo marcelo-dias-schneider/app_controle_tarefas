@@ -4,7 +4,8 @@ use App\Mail\MensagemMail;
 use GuzzleHttp\Middleware;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
-
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TarefaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,9 +24,10 @@ Route::get('/', function () {
 Auth::routes(['verify' => true]);
 
 // A Rora apos login pode ser definida em App\Providers const HOME
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])
+Route::get('/home', [HomeController::class, 'index'])
     ->name('home')
     ->middleware('verified');
+Route::get('tarefa/exportacao', [TarefaController::class, 'export'])->name('tarefa.export');
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
     ->middleware('verified');
 

@@ -8,7 +8,9 @@ use App\Mail\TarefaAtualizadaMail;
 use App\Mail\RemoverTarefaMail;
 use App\Models\Tarefa;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Exports\TarefasExport;
 
 class TarefaController extends Controller
 {
@@ -160,5 +162,10 @@ class TarefaController extends Controller
         $destinatario = auth()->user()->email;
         Mail::to($destinatario)->send(new RemoverTarefaMail($tarefa));
         return redirect()->route('tarefa.index');
+    }
+
+    public function export()
+    {
+        return Excel::download(new TarefasExport, 'lista_de_tarefas.xlsx');
     }
 }

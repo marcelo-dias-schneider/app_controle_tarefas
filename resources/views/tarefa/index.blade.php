@@ -5,7 +5,10 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Tarefas de {{ $usuario['nome'] }}</div>
+                <div class="card-header">
+                    Tarefas de {{ $usuario['nome'] }}
+                    <a href="{{ route('tarefa.export') }}" target="_blank" class="float-right">Exportar</a>
+                </div>
 
                 <div class="card-body">
                     <table class="table">
