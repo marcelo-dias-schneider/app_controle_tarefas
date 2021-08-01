@@ -23,11 +23,12 @@ Route::get('/', function () {
 
 Auth::routes(['verify' => true]);
 
-// A Rora apos login pode ser definida em App\Providers const HOME
+// A Rota apos login pode ser definida em App\Providers const HOME
 Route::get('/home', [HomeController::class, 'index'])
     ->name('home')
     ->middleware('verified');
-Route::get('tarefa/exportacao/{estensao}', [TarefaController::class, 'export'])->name('tarefa.export');
+Route::get('tarefa/exportacao-excel/{estensao}', [TarefaController::class, 'export_excel'])->name('tarefa.export-excel');
+Route::get('tarefa/exportacao-dompdf', [TarefaController::class, 'export_dompdf'])->name('tarefa.export-dompdf');
 Route::resource('tarefa', 'App\Http\Controllers\TarefaController')
     ->middleware('verified');
 

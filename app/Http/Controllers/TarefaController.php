@@ -11,6 +11,7 @@ use Illuminate\Http\Request;
 // use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\TarefasExport;
+use PDF;
 
 class TarefaController extends Controller
 {
@@ -164,11 +165,18 @@ class TarefaController extends Controller
         return redirect()->route('tarefa.index');
     }
 
-    public function export($estensao)
+    public function export_excel($estensao)
     {
         if ( !in_array($estensao, ['csv', 'xlsx', 'pdf']) ) {
             return  'extençsão invalida';
         }
         return Excel::download(new TarefasExport, 'lista_de_tarefas.' . $estensao);
+    }
+
+    public function export_dompdf()
+    {
+        $tarefas = auth()->user()->tarefas()->get();
+        $pdf = PDF::loadView('tarefa.dompdf', compact('tarefas'));
+        return $pdf->download('lista_de_tarefas.pdf');
     }
 }
