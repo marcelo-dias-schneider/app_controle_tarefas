@@ -166,7 +166,7 @@ class TarefaController extends Controller
 
     public function export($estensao)
     {
-        if ($estensao != 'cvs' || $estensao != 'xlsx') {
+        if ( !in_array($estensao, ['csv', 'xlsx', 'pdf']) ) {
             return  'extençsão invalida';
         }
         return Excel::download(new TarefasExport, 'lista_de_tarefas.' . $estensao);

@@ -7,8 +7,9 @@
             <div class="card">
                 <div class="card-header">
                     Tarefas de {{ $usuario['nome'] }}
-                    <a href="{{ route('tarefa.export', ['estensao' => 'csv']) }}" target="_blank" class="float-right mx-1">Exportar CSV</a>
-                    <a href="{{ route('tarefa.export', ['estensao' => 'xlsx']) }}" target="_blank" class="float-right mx-1">Exportar XLSX</a>
+                    <a href="{{ route('tarefa.export', ['estensao' => 'csv']) }}" class="float-right mx-1">Exportar CSV</a>
+                    <a href="{{ route('tarefa.export', ['estensao' => 'xlsx']) }}" class="float-right mx-1">Exportar XLSX</a>
+                    <a href="{{ route('tarefa.export', ['estensao' => 'pdf']) }}" class="float-right mx-1">Exportar PDF</a>
                 </div>
 
                 <div class="card-body">
