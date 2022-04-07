@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;
 
 class RemoverTarefaMail extends Mailable
 {
@@ -24,7 +25,7 @@ class RemoverTarefaMail extends Mailable
     {
         $this->tarefa = $tarefa->tarefa;
         $this->data_conclusao = date('d/m/Y', strtotime($tarefa->data_conclusao));
-        $this->url = 'http://localhost:8000/tarefa/';
+        $this->url = URL::to('/') . '/tarefa/';
     }
 
     /**

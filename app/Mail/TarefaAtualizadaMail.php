@@ -7,6 +7,7 @@ use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\URL;
 
 class TarefaAtualizadaMail extends Mailable
 {
@@ -27,7 +28,7 @@ class TarefaAtualizadaMail extends Mailable
         $this->data_conclusao_antiga = date('d/m/Y', strtotime($tarefa_antiga['data_conclusao']));
         $this->tarefa = $tarefa->tarefa;
         $this->data_conclusao = date('d/m/Y', strtotime($tarefa->data_conclusao));
-        $this->url = 'http://localhost:8000/tarefa/' . $tarefa->id;
+        $this->url = URL::to('/') . '/tarefa/' . $tarefa->id;
     }
 
     /**
