@@ -25,7 +25,7 @@ class NovaTarefaMail extends Mailable
     {
         $this->tarefa = $tarefa->tarefa;
         $this->data_conclusao = date('d/m/Y', strtotime($tarefa->data_conclusao));
-        $this->url = URL::to('/') . 'tarefa/' . $tarefa->id;
+        $this->url = URL::to('/') . '/tarefa/' . $tarefa->id;
     }
 
     /**
